@@ -17,6 +17,8 @@ def calc(x):
     1
     >>> round(calc(2), 4)
     0.1129
+    >>> calc(13)
+
     """
     total = 0
     for i in range(x + 1):
@@ -38,7 +40,7 @@ def helper(x):
     """
     if x == 0:
         return [0]
-    if x == 1
+    if x == 1:
         return [1] #note we need to rearrange cause the first turn is always 1
     deck_size = 52
     lst = []
@@ -50,7 +52,7 @@ def helper(x):
         table += 1
         deck_size -= 1
         lst.append(frac)
-    rest_in_deck = 3 * x
+    rest_in_deck = 3 * (x + 1)
     end = rest_in_deck / deck_size
     lst.append(end)
     lst.append(x)
