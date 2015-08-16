@@ -14,11 +14,11 @@ def calc(x):
     """
     Returns the expectation for getting anywhere from 0 to x points.
     >>> round(calc(1), 4)
-    1
+    1.0
     >>> round(calc(2), 4)
-    0.1129
+    1.2259
     >>> calc(13)
-
+    5.6377415993937143
     """
     total = 0
     for i in range(x + 1):
@@ -32,17 +32,15 @@ def calc(x):
 def helper(x):
     """
     >>> helper(1)
-    [1.0, 0.058823529411764705, 1]
+    [1]
     >>> helper(2)
-    [1.0, 0.9411764705882353, 0.12, 2]
+    [1.0, 0.94117647058823528, 0.12, 2]
     >>> helper(3)
-    [1.0, 0.9411764705882353, 0.88, 0.1836734693877551, 3]
+    [1.0, 0.94117647058823528, 0.88, 0.18367346938775511, 3]
     """
     if x == 0:
         return [0]
-    if x == 1:
-        return [1] #note we need to rearrange cause the first turn is always 1
-    deck_size = 52
+    deck_size = 52.0
     lst = []
     table = 0
     numer = deck_size
@@ -52,7 +50,7 @@ def helper(x):
         table += 1
         deck_size -= 1
         lst.append(frac)
-    rest_in_deck = 3 * (x + 1)
+    rest_in_deck = 3 * x
     end = rest_in_deck / deck_size
     lst.append(end)
     lst.append(x)
