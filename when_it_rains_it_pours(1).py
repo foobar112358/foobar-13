@@ -2,40 +2,40 @@ import copy
 
 __author__ = 'Liam'
 
+
+def all_same(heights):
+    i = heights[0]
+    for j in heights:
+        if i != j:
+            return False
+    return True
+
+
 def answer(heights):
     """
-    >>> answer([1, 4, 2, 5, 1, 2, 3])
-    5
-    >>> answer([1, 2, 3, 2, 1])
-    0
+    # >>> answer([1, 4, 2, 5, 1, 2, 3])
+    # 5
+    # >>> answer([1, 2, 3, 2, 1])
+    # 0
+    # >>> answer([2,2,2,2,2,2,2,2])
+    # 0
+    # >>> answer([1,2,3,3,2,3,4,5,6])
+    # 1
+    # >>> answer([0])
+    # 0
+    # >>> answer([1,2,3,4,5,6,7,8,7,9])
+    # 1
+    >>> answer([1,2,1,2,1,2,1,2,1])
+    3
     """
+    if len(heights) <= 2 or all_same(heights):
+        return 0
     counter = 0
-    ref = copy.copy(heights)
-    ran = 0
-    j = ref.index(max(ref))
-    abs_max = max(heights)
-    ref[j] = 0
-    i = ref.index(max(ref))
-    ran += abs(i - j)
-    while ran < (len(heights) - 2):
-        counter += fill_in_matrix(ref, i, j)
-        i, j = find_max_outside_range(ref, i, j)
-        counter += fill_in_matrix(ref, i, j)
-    return counter
-
-
-def find_max_outside_range(ref, i, j):
-    """Takes in the reference list and the indices bounding the fill range.
-    Modifies reference list to reflect filling and returns new effective range
-    indices. 
-    """
-    ret = ref.index(max(ref))
-    if (ret < min(i , j)):
-        lg = max(i, j)
-    else:
-        lg = min(i, j)
-    ref[ret] = 0
-    return ret, lg
+    i = heights.index(max(heights))
+    max_val = heights[i]
+    j = heights.index(max(height for height in heights if heights.index(height) != heights.index(i)))
+    counter += fill_in_matrix(heights, i, j)
+    return counter + answer(heights[:min(i, j) + 1]) + answer(heights[max(i, j):])
 
 
 def fill_in_matrix(matrix, i, j):
@@ -46,5 +46,4 @@ def fill_in_matrix(matrix, i, j):
     maxi = min(matrix[i], matrix[j])
     for k in range(min(i, j) + 1, max(i, j)):
         counter += abs(maxi - matrix[k])
-        matrix[k] = 0
     return counter
